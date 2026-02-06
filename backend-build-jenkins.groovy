@@ -1,6 +1,9 @@
 pipeline {
     agent any
-
+       
+    triggers {
+        githubPush()
+    }
     stages {
         stage('Fetch Code') {
             steps {
@@ -28,7 +31,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                // Restarts if exists, otherwise starts new
+                
                 sh 'pm2 restart flask-backend || pm2 start app.py --name "flask-backend" --interpreter python3'
             }
         }
