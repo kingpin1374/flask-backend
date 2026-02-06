@@ -29,6 +29,18 @@ pipeline {
                 sh '. myenv/bin/activate && pip install -r requirements.txt'
             }
         }
+         stage('Install Node.js and PM2') {
+            steps {
+                sh '''
+                    # Install Node.js
+                    curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+                    sudo apt-get install -y nodejs
+ 
+                    # Install PM2 globally
+                    sudo npm install -g pm2
+                '''
+            }
+        }
         stage('Deploy') {
             steps {
                 
